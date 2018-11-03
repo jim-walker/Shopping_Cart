@@ -35,12 +35,25 @@
   initData();
 
 const addItemToCart = function() {
-    let tester = $(this).attr("cart");
     if ($(this).attr("cart") === 'false'){
-    const item = $('<div>').addClass('text-success');
+    $(this).attr("cart","true")
+    const item = $('<h2>').addClass('btn btn-outline-success w-100 m-2');
     item.text($(this).attr("item"));
     $('#listContent').append(item);
     }
 }
 
+const changeColor=function(){
+    console.log(this);
+    const dItem=$(this).addClass('btn-outline-danger');
+    $('#listContent').append(dItem);
+}
+const revertColor=function(){
+    console.log(this);
+    const rItem=$(this).removeClass('btn-outline-danger');
+    $('#listContent').append(rItem);
+}
+
   $('#catalog').on('click', '.btn', addItemToCart);
+  $('#listContent').one('mouseenter', '.btn', changeColor);
+  $('#listContent').one('mouseleave', '.btn', revertColor);
