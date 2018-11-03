@@ -1,3 +1,5 @@
+$(document).ready(function () {
+
   var itemList = [
       {
           item:'Alex Reiger\'s Hack License',
@@ -37,9 +39,18 @@
 const addItemToCart = function() {
     if ($(this).attr("cart") === 'false'){
     $(this).attr("cart","true")
-    const item = $('<h2>').addClass('btn btn-outline-success w-100 m-2');
+    const item = $('<h2>').addClass('cartButton btn btn-outline-success w-100 m-2');
     item.text($(this).attr("item"));
     $('#listContent').append(item);
+    }
+}
+
+const removeItemFromCart = function() {
+    console.log($('#catalog').attr("cart"));
+    if ($('#catalog').attr("cart") === 'true'){
+    $('#catalog').attr("cart","false");
+    const item = $('<h2>');
+    $(this).remove(item);
     }
 }
 
@@ -55,5 +66,5 @@ const revertColor=function(){
 }
 
   $('#catalog').on('click', '.btn', addItemToCart);
-  $('#listContent').one('mouseenter', '.btn', changeColor);
-  $('#listContent').one('mouseleave', '.btn', revertColor);
+  $('#listContent').on('click', '.btn', removeItemFromCart);
+});
