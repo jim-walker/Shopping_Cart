@@ -3,68 +3,104 @@ $(document).ready(function () {
   var itemList = [
       {
           item:'Alex Reiger\'s Hack License',
-          category:'80\'s TV',
+          category:'80s',
           filtered:'false',
           cart:'false'
       },
       {
           item:'Arthur Fonserelli\'s Jacket',
-          category:'70\'s TV',
+          category:'70s',
           filtered:'false',
           cart:'false'
       },
       {
           item:'Jamie Sommers\' Tennis Racket',
-          category:'70\'s TV',
+          category:'70s',
           filtered:'false',
           cart:'false'
       },
   ];
 
-    const initData = function() {
+const renderCat= function() {
+    clearCat();
     for( let i = 0; i < itemList.length; i++ ) {
-      const itemBtn = $('<button>');
-      itemBtn.addClass('btn w-100 m-2');
-      itemBtn.attr('item', itemList[i].item);
-      itemBtn.attr('category', itemList[i].category);
-      itemBtn.attr('filtered', itemList[i].filtered);
-      itemBtn.attr('cart', itemList[i].cart);
-      itemBtn.text(itemList[i].item);
-      $('#catalog').append(itemBtn);
+        if (itemList[i].filtered==='false'){
+            const itemBtn = $('<button>');
+            itemBtn.addClass('btn w-100 m-2');
+            itemBtn.attr('item', itemList[i].item);
+            itemBtn.attr('index', i);
+            itemBtn.text(itemList[i].item);
+            $('#listCat').append(itemBtn);
+        }
     }
-  }
-  
-  initData();
+}
+
+const renderCart = function() {
+    clearCart();
+    for( let i = 0; i < itemList.length; i++ ) {
+        if (itemList[i].cart==='true'){
+            const cartBtn = $('<button>');
+            cartBtn.addClass(`btn btn-outline-success w-100 m-2`);
+            cartBtn.attr('item', itemList[i].item);
+            cartBtn.attr('index', i);
+            cartBtn.text(itemList[i].item);
+            $('#listCart').append(cartBtn);
+        }
+    }
+}
+
+const clearCat = function () {
+    $('#listCat').empty();
+}
+
+const clearCart = function () {
+    $('#listCart').empty();
+}
+
+renderCat();
 
 const addItemToCart = function() {
-    if ($(this).attr("cart") === 'false'){
-    $(this).attr("cart","true")
-    const item = $('<h2>').addClass('cartButton btn btn-outline-success w-100 m-2');
-    item.text($(this).attr("item"));
-    $('#listContent').append(item);
+    itemIndex=$(this).attr("index");
+    if (itemList[itemIndex].cart==='false'){
+        itemList[itemIndex].cart='true';
+        renderCart();
+    } else {
+        alert(`Item is already in Shopping Cart`)
     }
 }
 
 const removeItemFromCart = function() {
-    console.log($('#catalog').attr("cart"));
-    if ($('#catalog').attr("cart") === 'true'){
-    $('#catalog').attr("cart","false");
-    const item = $('<h2>');
-    $(this).remove(item);
+    itemIndex=$(this).attr("index");
+    itemList[itemIndex].cart='false';
+    renderCart();
+    } 
+
+const unFiltered= function() {
+    for( let i = 0; i < itemList.length; i++ ) {
+        itemList[i].filtered='false';
     }
+    renderCat();
+}
+const decadeFilter= function() {
+    for( let i = 0; i < itemList.length; i++ ) {
+        if (itemList[i].category===$(this).attr("value")){
+            itemList[i].filtered='true';
+        }
+    }
+    renderCat();
 }
 
-const changeColor=function(){
-    console.log(this);
-    const dItem=$(this).addClass('btn-outline-danger');
-    $('#listContent').append(dItem);
-}
-const revertColor=function(){
-    console.log(this);
-    const rItem=$(this).removeClass('btn-outline-danger');
-    $('#listContent').append(rItem);
+const resetCart=function() {
+    for( let i = 0; i < itemList.length; i++ ) {
+        itemList[i].cart='false';
+    }
+    renderCart();
 }
 
-  $('#catalog').on('click', '.btn', addItemToCart);
-  $('#listContent').on('click', '.btn', removeItemFromCart);
+  $('#all').on('click', unFiltered);
+  $('#70s').on('click', decadeFilter);
+  $('#80s').on('click', decadeFilter);
+  $('#listCat').on('click', '.btn', addItemToCart);
+  $('#listCart').on('click', '.btn', removeItemFromCart);
+  $('#clearCart').on('click', resetCart);
 });
