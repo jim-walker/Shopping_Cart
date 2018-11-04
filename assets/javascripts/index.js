@@ -8,7 +8,13 @@ $(document).ready(function () {
           cart:'false'
       },
       {
-          item:'Arthur Fonserelli\'s Jacket',
+          item:'Johnny Fever\'s Sun Glasses',
+          category:'80s',
+          filtered:'false',
+          cart:'false'
+      },
+      {
+          item:'Arthur Fonzarelli\'s Jacket',
           category:'70s',
           filtered:'false',
           cart:'false'
@@ -16,6 +22,30 @@ $(document).ready(function () {
       {
           item:'Jamie Sommers\' Tennis Racket',
           category:'70s',
+          filtered:'false',
+          cart:'false'
+      },
+      {
+          item:'Sam Malone\'s Baseball Card',
+          category:'80s',
+          filtered:'false',
+          cart:'false'
+      },
+      {
+          item:'Ralph Hinkley\'s Instruction Manual',
+          category:'80s',
+          filtered:'false',
+          cart:'false'
+      },
+      {
+          item:'Ted Baxter\'s Channel 10 Blazer',
+          category:'70s',
+          filtered:'false',
+          cart:'false'
+      },
+      {
+          item:'Knight Industries Two Thousand',
+          category:'80s',
           filtered:'false',
           cart:'false'
       },
